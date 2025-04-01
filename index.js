@@ -49,4 +49,4 @@ app.get('/edit/:filename',function(req,res){
     });
 });
 
-module.exports = app;
+app.listen(3000);
