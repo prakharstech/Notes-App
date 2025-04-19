@@ -19,14 +19,14 @@
             <% if(typeof files !== 'undefined' && Array.isArray(files) && files.length > 0){ %>
                 <% files.forEach(function(val){ %>
                     <div class="task min-w-72 px-3 py-4 rounded-md bg-zinc-800">
-                        <h1 class="text-white text-3xl tracking-tighter"><%= val.replace(/_/g, " ").split('.').slice(0, -1).join('.') %>
+                        <h1 class="text-white text-3xl tracking-tighter"><%= val.title %>
                         </h1>
                         <div class="flex w-full justify-between items-center mt-3">
-                            <a class="text-blue-500 inline-block" href="/files/<%= val %>">Read more</a>
-                            <form action="/delete/<%=val%>" method="post" style="display: inline;">
+                            <a class="text-blue-500 inline-block" href="/files/<%= val.id %>">Read more</a>
+                            <form action="/delete/<%=val.id%>" method="post" style="display: inline;">
                                 <button type="submit" class="text-blue-500 bg-transparent border-none cursor-pointer">Delete</button>
                             </form>
-                            <a class="text-blue-500 " href="/edit/<%= val %>">Edit</a>
+                            <a class="text-blue-500 " href="/edit/<%= val.id %>">Edit</a>
                         </div>
                     </div>
                     <%}) %>
