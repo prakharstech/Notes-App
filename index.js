@@ -7,6 +7,14 @@ const fs = require('fs');
 const { fileLoader } = require('ejs');
 const { log } = require('console');
 const PORT = process.env.PORT || 3000;
+require('dotenv').config();
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => console.log("✅ MongoDB connected successfully"))
+.catch((err) => console.error("❌ MongoDB connection error:", err));
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine','ejs');
