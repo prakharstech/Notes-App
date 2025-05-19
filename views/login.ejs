@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Login</title>
+</head>
+<body class="bg-gradient-to-br from-zinc-900 to-zinc-800 min-h-screen flex flex-col items-center justify-center text-white font-sans">
+
+  <!-- Main App Heading -->
+  <h1 class="text-5xl font-bold mb-8 text-white drop-shadow-md">Notes App</h1>
+
+  <!-- Login Card -->
+  <div class="w-full max-w-md bg-zinc-950/80 backdrop-blur-md p-8 rounded-2xl shadow-lg border border-zinc-800">
+    <form method="POST" action="/login" class="flex flex-col space-y-6">
+      <h3 class="text-3xl font-semibold text-center mb-4">Login to Your Account</h3>
+
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        required
+        class="px-4 py-2 rounded-md bg-zinc-800 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+      />
+
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        required
+        class="px-4 py-2 rounded-md bg-zinc-800 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+      />
+
+      <input
+        type="submit"
+        value="Login"
+        class="bg-blue-600 hover:bg-blue-700 transition-colors duration-200 px-4 py-2 rounded-md font-medium cursor-pointer"
+      />
+      
+      <p class="text-sm text-zinc-400 text-center">
+        Don't have an account? <a href="/register" class="text-blue-400 hover:underline">Register</a>
+      </p>
+    </form>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        if (params.get("registered") === "1") {
+          alert("User created successfully!");
+        }
+      </script>
+      
+    <script>
+        const form = document.querySelector("form");
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+      
+        form.addEventListener("submit", function (e) {
+          if (!email.value.trim() || !password.value.trim()) {
+            e.preventDefault(); // prevent form from submitting
+            alert("Please fill in both email and password.");
+          }
+        });
+      </script>
+      
+  </div>
+
+</body>
+</html>

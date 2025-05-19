@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Register</title>
+</head>
+<body class="bg-gradient-to-br from-zinc-900 to-zinc-800 min-h-screen flex flex-col items-center justify-center text-white font-sans">
+
+  <!-- Main Heading -->
+  <h1 class="text-5xl font-bold mb-8 text-white drop-shadow-md">Notes App</h1>
+
+  <!-- Registration Card -->
+  <div class="w-full max-w-md bg-zinc-950/80 backdrop-blur-md p-8 rounded-2xl shadow-lg border border-zinc-800">
+    <form method="POST" action="/register" class="flex flex-col space-y-6" id="registerForm">
+      <h3 class="text-3xl font-semibold text-center mb-4">Create an Account</h3>
+
+      <input
+        id="name"
+        type="text"
+        name="name"
+        placeholder="Name"
+        required
+        class="px-4 py-2 rounded-md bg-zinc-800 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+      />
+
+      <input
+        id="email"
+        type="email"
+        name="email"
+        placeholder="Email"
+        required
+        class="px-4 py-2 rounded-md bg-zinc-800 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+      />
+
+      <input
+        id="password"
+        type="password"
+        name="password"
+        placeholder="Password"
+        required
+        class="px-4 py-2 rounded-md bg-zinc-800 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+      />
+
+      <input
+        type="submit"
+        value="Register"
+        class="bg-blue-600 hover:bg-blue-700 transition px-4 py-2 rounded-md font-medium cursor-pointer"
+      />
+
+      <p class="text-sm text-zinc-400 text-center">
+        Already have an account? <a href="/" class="text-blue-400 hover:underline">Login</a>
+      </p>
+    </form>
+  </div>
+
+  <!-- Optional JS to prevent empty fields -->
+  <script>
+    const form = document.getElementById("registerForm");
+    form.addEventListener("submit", function (e) {
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (!name || !email || !password) {
+        e.preventDefault();
+        alert("Please fill in all fields.");
+      }
+    });
+  </script>
+
+</body>
+</html>
