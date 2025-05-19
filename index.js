@@ -46,7 +46,7 @@ app.post("/login",async (req,res)=>{
             res.cookie("token",token)
             res.redirect("/dashboard");
         }
-        else res.send("Invalid Credential")
+        else return res.send("Invalid Credentials")
     })
 })
 
@@ -62,7 +62,7 @@ app.get('/register',(req,res)=>{
 app.post('/register', async (req,res)=>{
     let {name, email, password} = req.body;
     if(await userModel.findOne({email:req.body.email})){
-        res.send("User with same email already exists")
+        return res.send("User with same email already exists")
     }
     bcrypt.genSalt(10, (err,salt)=>{
         bcrypt.hash(password,salt,async (err,hash)=>{
