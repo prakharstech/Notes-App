@@ -82,7 +82,7 @@ app.get('/dashboard',async function(req,res){
     let decoded = jwt.verify(token,process.env.JWT_SECRET);
     let user = await userModel.findOne({email: decoded.email});
     let notes = await notesModel.find({user: user._id});
-    res.render("index",{files:notes || []});
+    res.render("index",{files:notes || [], userName:user.name});
 });
 
 app.post('/create',async function(req,res){

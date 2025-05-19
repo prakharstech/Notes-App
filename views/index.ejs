@@ -7,7 +7,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
-    <div class="p-4 bg-zinc-900 m-0 p-0">
+    <div class="p-4 bg-zinc-900 flex justify-between items-center">
+        <h1 class="text-white text-lg font-semibold">
+            Welcome <%= userName %>
+        </h1>
         <form action="/logout" method="post">
             <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-md">Logout</button>
         </form>
