@@ -26,10 +26,10 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname,'public')));
 app.use(cookieParser());
 
-app.use((req, res, next) => {
+function noCache(req, res, next) {
     res.set('Cache-Control', 'no-store');
     next();
-});
+};
 
 app.get("/", (req,res)=>{
     res.render("login");
@@ -76,7 +76,7 @@ app.post('/register', async (req,res)=>{
     })
 })
 
-app.get('/dashboard',async function(req,res){
+app.get('/dashboard',noCache,async function(req,res){
     let token = req.cookies.token;
     if(!token) return res.redirect('/');
     let decoded = jwt.verify(token,process.env.JWT_SECRET);
