@@ -124,6 +124,16 @@ app.get('/edit/:id',async function(req,res){
 });
 
 
+/*
+    function isLoggedIN(req,res,next){
+        let token = req.cookies.token;
+        if(!token) return res.redirect('/');
+        let decoded = jwt.verify(token,process.env.JWT_SECRET);
+        req.user=decoded;
+        next();
+    }
+*/
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
