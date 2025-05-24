@@ -3,18 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
     <div class="p-4 bg-zinc-900 flex justify-between items-center">
-        <h1 class="text-white text-lg font-semibold">
-            Welcome, <%= userName %> 👋🏻
-        </h1>
-        <form action="/logout" method="post">
-            <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-md">Logout</button>
+        <!-- Profile picture upload form -->
+        <form action="/upload-profile" method="POST" enctype="multipart/form-data" class="flex items-center gap-4">
+          <input 
+            id="profilePicInput" 
+            type="file" 
+            name="profilePic" 
+            class="hidden" 
+            onchange="this.form.submit()" 
+          />
+          <label for="profilePicInput" class="w-10 h-10 rounded-md cursor-pointer block">
+            <img 
+              class="w-full h-full object-cover" 
+              src="/images/<%= user.profpic %>" 
+              alt="Profile Picture" 
+            />
+          </label>
+          <h1 class="text-white text-lg font-semibold">
+            Welcome, <%= user.name %> 👋🏻
+          </h1>
         </form>
-    </div>
+      
+        <!-- Logout button -->
+        <form action="/logout" method="POST">
+          <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-md">Logout</button>
+        </form>
+      </div>
+      
     
     
     <div class="main w-full min-h-screen bg-zinc-900">

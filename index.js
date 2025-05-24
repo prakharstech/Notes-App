@@ -8,6 +8,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const notesModel = require('./models/notesinfo');
 const userModel = require('./models/user')
+const upload = require('./utils/multerconfig');
 const fs = require('fs');
 const { fileLoader } = require('ejs');
 const { log } = require('console');
@@ -59,8 +60,9 @@ app.get('/register',(req,res)=>{
     res.render('register')
 })
 
-app.post('/register', async (req,res)=>{
+app.post('/register',upload.single('profpic'), async (req,res)=>{
     let {name, email, password} = req.body;
+    let profpic = req.file?.filename;
     if(await userModel.findOne({email:req.body.email})){
         return res.send("User with same email already exists")
     }
@@ -69,11 +71,23 @@ app.post('/register', async (req,res)=>{
             let user = await userModel.create({
                 name,
                 email,
-                password:hash
+                password:hash,
+                profpic
             })
             res.redirect("/");
         })
     })
+})
+
+app.post("/upload-profile", upload.single('profilePic'), async(req,res)=>{
+    let token = req.cookies.token;
+    if(!token) return res.redirect('/');
+    let decoded = jwt.verify(token,process.env.JWT_SECRET);
+    let updatedUser = await userModel.findOneAndUpdate({email: decoded.email},
+        {profpic: req.file.filename
+         },
+        {new:true});
+        res.redirect('/dashboard');
 })
 
 app.get('/dashboard',noCache,async function(req,res){
@@ -82,7 +96,7 @@ app.get('/dashboard',noCache,async function(req,res){
     let decoded = jwt.verify(token,process.env.JWT_SECRET);
     let user = await userModel.findOne({email: decoded.email});
     let notes = await notesModel.find({user: user._id});
-    res.render("index",{files:notes || [], userName:user.name});
+    res.render("index",{files:notes || [], user});
 });
 
 app.post('/create',async function(req,res){
