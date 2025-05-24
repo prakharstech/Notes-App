@@ -7,7 +7,7 @@ const userSchema = mongoose.Schema({
     password: String,
     profpic: {
         type: String,
-        default: "default.jpeg"
+        default: "https://res.cloudinary.com/dwnc65sca/image/upload/v1748103117/images_kgtazg.jpg"
     }
 })
 

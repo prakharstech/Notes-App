@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken')
 const notesModel = require('./models/notesinfo');
 const userModel = require('./models/user')
 const upload = require('./utils/multerconfig');
+const uploadToCloudinary = require('./utils/uploadCloudinary');
 const fs = require('fs');
 const { fileLoader } = require('ejs');
 const { log } = require('console');
@@ -62,9 +63,15 @@ app.get('/register',(req,res)=>{
 
 app.post('/register',upload.single('profpic'), async (req,res)=>{
     let {name, email, password} = req.body;
-    let profpic = req.file?.filename;
+    //let profpic = req.file?.filename;
     if(await userModel.findOne({email:req.body.email})){
         return res.send("User with same email already exists")
+    }
+    let imageUrl = "https://res.cloudinary.com/dwnc65sca/image/upload/v1748103117/images_kgtazg.jpg"; // fallback
+
+    if (req.file) {
+        const result = await uploadToCloudinary(req.file.buffer, 'profile_pics');
+        imageUrl = result.secure_url;
     }
     bcrypt.genSalt(10, (err,salt)=>{
         bcrypt.hash(password,salt,async (err,hash)=>{
@@ -72,7 +79,7 @@ app.post('/register',upload.single('profpic'), async (req,res)=>{
                 name,
                 email,
                 password:hash,
-                profpic
+                profpic: imageUrl
             })
             res.redirect("/");
         })
@@ -83,10 +90,17 @@ app.post("/upload-profile", upload.single('profilePic'), async(req,res)=>{
     let token = req.cookies.token;
     if(!token) return res.redirect('/');
     let decoded = jwt.verify(token,process.env.JWT_SECRET);
+    let imageUrl = "https://res.cloudinary.com/dwnc65sca/image/upload/v1748103117/images_kgtazg.jpg";
+    if (req.file) {
+        const result = await uploadToCloudinary(req.file.buffer, 'profile_pics');
+        imageUrl = result.secure_url;
+    }
     let updatedUser = await userModel.findOneAndUpdate({email: decoded.email},
-        {profpic: req.file.filename
+        {profpic: imageUrl
          },
         {new:true});
+        console.log("req.file:", req.file);
+
         res.redirect('/dashboard');
 })
 
