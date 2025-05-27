@@ -32,6 +32,7 @@ This is a backend project for a simple notes application developed to demonstrat
 
 ### ✅ File Uploads
 - Optional profile picture upload using Multer
+- Images are stored securely on **Cloudinary** (cloud image hosting with CDN support).
 - Default profile image if none provided
 
 ### ✅ Database Integration
