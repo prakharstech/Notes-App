@@ -48,7 +48,7 @@ This is a backend project for a simple notes application developed to demonstrat
 - Protected routes based on token verification
 
 ### ✅ MVC Architecture
-- Clean folder structure with separate models, views, and utilities
+- Clean folder structure with separate models, views and utilities
 - EJS used to render server-side views
 
 ---
