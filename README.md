@@ -5,7 +5,7 @@ This is a backend project for a simple notes application developed to demonstrat
 ## 🔗 Live Link
 
 👉 https://notes-app-394o.onrender.com
-
+⏳ Please wait ~1 minute for the server to spin up — this is hosted on Render’s free tier (which sleeps when inactive).
 
 ---
 
