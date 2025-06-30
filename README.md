@@ -36,7 +36,7 @@ This is a backend project for a simple notes application developed to demonstrat
 - Default profile image if none provided
 
 ### ✅ Database Integration
-- MongoDB used for persistent storage
+- MongoDB Atlas used for persistent storage
 - Mongoose schemas and queries
 
 ### ✅ CRUD Operations
